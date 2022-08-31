@@ -17,9 +17,9 @@ def constraint2(x):
     return x[2] + x[3] - (2 * x[4])
 def constraint3(x):
     return x[1] - x[4]
-x0 = [1,2,3,4,5]
-print(func(x0))
-# domain of xi is from -10 to 10
+guess_values = [1,2,3,4,5]
+# print(func(guess_values))
+# limit of xi is from -10 to 10
 limits = (-10.0,10.0)
 boundary = (limits,limits,limits,limits,limits)
 cons1 = {'type':'eq', 'fun': constraint1}
@@ -27,5 +27,5 @@ cons2 = {'type':'eq', 'fun': constraint2}
 cons3 = {'type':'eq', 'fun': constraint3}
 const = [cons1,cons2,cons3]
 
-Solution = minimize(func,x0,bounds = boundary,constraints = const)
+Solution = minimize(func,guess_values,bounds = boundary,constraints = const)
 print(Solution)
