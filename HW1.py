@@ -8,7 +8,7 @@ def func(x):
     x3 = x[2]
     x4 = x[3]
     x5 = x[4]
-    return ((x[0] - x[2])**2)+((x[1] + x[2] - 2)**2)+((x[3] - 1)**2)+((x[4] - 1)**2)
+    return ((x[0] - x[1])**2)+((x[1] + x[2] - 2)**2)+((x[3] - 1)**2)+((x[4] - 1)**2)
 # subject to  equations
 # defining constraints
 def constraint1(x):
