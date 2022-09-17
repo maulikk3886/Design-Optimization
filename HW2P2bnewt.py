@@ -13,10 +13,9 @@ x0 = []
 #beta = 0.8
 # Indirect line search
 def backtrack(x):
-    while f(x - alpha*gradient(x)) > f(x) - (t * np.matmul(gradient(x).T,-1*gradient(x)) * alpha): # Gradient descent algorithm
+    while f(x - alpha*gradient(x)) > f(x) - (t * gradient(x).T*np.linalg.inv(hessian(x))*gradient(x)) * alpha): # Newton's method
         alpha = 0.5 * alpha
     return alpha
-
 
 while np.linalg.norm(gradient(x)) > 0.001:  # epsilon  = 0.001
     alpha = backtrack(x) #step size
