@@ -5,7 +5,7 @@ def f(x):
 def gradient(x):
     return np.array([10*x[0] + 12*x[1] - 8, 12*x[0] + 20*x[1] - 14])
 def hessian(x):
-    return np.array([[10,12],[12,20]])
+    return np.matrix([[10,12],[12,20]])
 
 t = 0.5
 alpha = 1
@@ -13,7 +13,7 @@ x0 = []
 #beta = 0.8
 # Indirect line search
 def backtrack(x):
-    while f(x - alpha*gradient(x)) > f(x) - (t * gradient(x).T*np.linalg.inv(hessian(x))*gradient(x)) * alpha): # Newton's method
+    while f(x - alpha*gradient(x)) > f(x) - (t * np.matmul(gradient(x).T*(-np.linalg.pinv(hessian(x))*gradient(x))) * alpha): # Newton's method
         alpha = 0.5 * alpha
     return alpha
 
