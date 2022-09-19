@@ -9,7 +9,7 @@ def hessian(x):
 
 t = 0.5
 alpha = 0.01
-x0 = [] # initial value
+
 #beta = 0.8
 # Indirect line search
 def backtrack(x):
@@ -21,4 +21,4 @@ def backtrack(x):
 
 while np.linalg.norm(gradient(x)) > 0.001:  # epsilon  = 0.001
     alpha = backtrack(x) #step size
-    x = x + alpha * gradient(x)
+    x = x + alpha * (-gradient(x))
