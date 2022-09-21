@@ -13,20 +13,23 @@ newt_values = [] # output value list
 
 # Indirect line search
 def backtrack(x):
+    a1 = np.matmul(gradient(x).T,np.linalg.inv(hessian(x)))
+    a2 = np.matmul(a1,gradient(x))
     alpha = 1
-    while f(x - alpha*gradient(x)) > (f(x) - (t*np.matmul(gradient(x).T,(np.matmul(np.linalg.inv(hessian(x)),gradient(x)))) *alpha)): # Newton's method
+    while f(x - alpha*gradient(x)) > (f(x) - (t* a2*alpha)): # Newton's method
         alpha = 0.5 * alpha
     return alpha
-
+#print(f(x_ini - alpha*gradient(x_ini)))
+#print((f(x_ini) - (t*np.matmul(gradient(x_ini).T,(np.matmul(np.linalg.inv(hessian(x_ini)),gradient(x_ini)))) *alpha)))
 
 while np.linalg.norm(gradient(x_ini)) > 0.0001:  # epsilon  = 0.0001
     alpha = backtrack(x_ini) #step size
-    x_ini = x_ini + alpha * (-np.linalg.pinv(hessian(x_ini))*gradient(x_ini))
+    x_ini = x_ini + alpha *(-gradient(x_ini))
     newt_values.append(f(x_ini))
 
 print(x_ini)
 print(newt_values)
-print(len(newt_values))
+#print(len(newt_values))
 y_ax = []
 for i in range(len(newt_values)-1):
     j = np.log10(newt_values[i] - newt_values[-1])
@@ -34,3 +37,4 @@ for i in range(len(newt_values)-1):
 
 x_ax = range(1,len(newt_values))
 mpl.plot(x_ax,y_ax)
+mpl.show()
