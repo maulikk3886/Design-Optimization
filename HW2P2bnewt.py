@@ -16,7 +16,7 @@ def backtrack(x):
     a1 = np.matmul(gradient(x).T,np.linalg.inv(hessian(x)))
     a2 = np.matmul(a1,gradient(x))
     alpha = 1
-    while f(x - alpha*gradient(x)) > (f(x) - (t* a2*alpha)): # Newton's method
+    while f(x - alpha*(-np.linalg.inv(hessian(x)))*gradient(x)).all() > (f(x) - (t* a2*alpha)).all(): # Newton's method
         alpha = 0.5 * alpha
     return alpha
 #print(f(x_ini - alpha*gradient(x_ini)))
@@ -24,11 +24,11 @@ def backtrack(x):
 
 while np.linalg.norm(gradient(x_ini)) > 0.0001:  # epsilon  = 0.0001
     alpha = backtrack(x_ini) #step size
-    x_ini = x_ini + alpha *(-gradient(x_ini))
+    x_ini = x_ini + alpha *np.matmul(-np.linalg.inv(hessian(x_ini)),gradient(x_ini))
     newt_values.append(f(x_ini))
 
 print(x_ini)
-print(newt_values)
+#print(newt_values)
 #print(len(newt_values))
 y_ax = []
 for i in range(len(newt_values)-1):
